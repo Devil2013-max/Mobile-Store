@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samsung Mobile Store</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f8f9fa; color: #333; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; border-radius: 8px; }
+    button { cursor: pointer; }
+
+    /* Header */
+    header {
+      background: #0d6efd;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 { font-size: 22px; }
+    nav a {
+      margin-left: 15px;
+      font-size: 15px;
+      font-weight: bold;
+      color: white;
+    }
+    nav a:hover { text-decoration: underline; }
+    .search input {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      width: 200px;
+    }
+
+    /* Hero */
+    .hero {
+      background: url('https://images.samsung.com/is/image/samsung/assets/global/galaxy-s24-ultra/hero-galaxy-s24-ultra.jpg') no-repeat center/cover;
+      height: 350px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 1px 1px 5px black;
+      flex-direction: column;
+    }
+    .hero h2 { font-size: 40px; margin-bottom: 10px; }
+    .hero p { font-size: 18px; }
+
+    /* Container */
+    .container {
+      display: flex;
+      padding: 20px;
+    }
+
+    /* Products */
+    .products {
+      flex: 3;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .product {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .product:hover { transform: translateY(-5px); }
+    .product h3 { margin: 10px 0 5px; font-size: 16px; }
+    .product p { font-size: 14px; color: #555; }
+    .product button {
+      background: #0d6efd;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      margin-top: 8px;
+      border-radius: 5px;
+    }
+
+    /* Sidebar / Cart */
+    .cart {
+      flex: 1;
+      margin-left: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    .cart h2 { font-size: 18px; margin-bottom: 10px; }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    .cart-item button {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+    .cart-total { margin-top: 10px; font-weight: bold; }
+
+    /* About */
+    .about {
+      padding: 40px 20px;
+      background: #e9ecef;
+      text-align: center;
+    }
+    .about h2 { font-size: 24px; margin-bottom: 15px; }
+    .about p { max-width: 600px; margin: auto; line-height: 1.6; }
+
+    /* Contact */
+    .contact {
+      padding: 40px 20px;
+      background: #f1f3f5;
+      text-align: center;
+    }
+    .contact h2 { font-size: 24px; margin-bottom: 15px; }
+    .contact form {
+      max-width: 400px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .contact input, .contact textarea {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+    }
+    .contact button {
+      background: #0d6efd;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    /* Footer */
+    footer {
+      background: #0d6efd;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Samsung Store</h1>
+    <nav>
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="search">
+      <input type="text" id="searchBox" placeholder="Search phones...">
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h2>Latest Samsung Mobiles</h2>
+    <p>Discover the Galaxy S, A, M, Z, Note & F series</p>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container" id="products">
+    <div class="products" id="productList"></div>
+
+    <div class="cart">
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <div class="cart-total">Total: $<span id="total">0</span></div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <h2>About Samsung Store</h2>
+    <p>
+      Welcome to Samsung Mobile Store, your one-stop destination for the latest Samsung smartphones. 
+      Explore the newest Galaxy S, A, Z Flip, Fold, M, and Note series devices. Our store brings you premium quality, 
+      innovation, and reliability. Shop confidently and stay connected with the best mobile technology.
+    </p>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <form onsubmit="alert('Message sent!'); return false;">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Samsung Mobile Store | Designed for demo purposes</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const products = [
+      {id:1, name:"Samsung Galaxy S25 Ultra", price:1299, desc:"12GB RAM, 512GB Storage", img:"https://images.samsung.com/pk/smartphones/galaxy-s25-ultra/buy/kv_global_MO_v2.jpg"},
+      {id:2, name:"Samsung Galaxy S25+", price:999, desc:"8GB RAM, 256GB Storage", img:"https://images.samsung.com/pk/smartphones/galaxy-s25/buy/product_color_navy_PC.png"},
+      {id:3, name:"Samsung Galaxy A55", price:399, desc:"6GB RAM, 128GB Storage", img:"https://airkart.com/cdn/shop/files/NewProject-2024-07-12T191916.146_1500x.jpg?v=1720794207"},
+      {id:4, name:"Samsung Galaxy Z Flip 6", price:1099, desc:"8GB RAM, 256GB Storage", img:"https://images.samsung.com/is/image/samsung/p6pim/pk/sm-f741bzsepkd/gallery/pk-galaxy-zflip6-f741-519770-sm-f741bzsepkd-543086514"},
+      {id:5, name:"Samsung Galaxy Note 23", price:899, desc:"S Pen, 8GB RAM, 256GB Storage", img:"data:image/jpeg;base64,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"},
+      {id:6, name:"Samsung Galaxy A35", price:299, desc:"4GB RAM, 64GB Storage", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0yZXGcBNX7ynoOZem7F3vQNzzv_UxlW3lWg&s"},
+      {id:7, name:"Samsung Galaxy M35", price:349, desc:"6GB RAM, 128GB Storage", img:"https://i.ytimg.com/vi/EsBz8KpnZwY/sddefault.jpg"},
+      {id:8, name:"Samsung Galaxy Z Fold 6", price:1799, desc:"12GB RAM, 512GB Storage", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9UFFpesvHXKrb-pv1AGxJh1Q6gencdxFKBg&s"},
+      {id:9, name:"Samsung Galaxy S23 Ultra", price:1199, desc:"12GB RAM, 256GB Storage", img:"https://img.drz.lazcdn.com/g/kf/S821b7830ec1e4564ba5172f15a42d7bb8.jpg_720x720q80.jpg"},
+      {id:10, name:"Samsung Galaxy A15", price:199, desc:"4GB RAM, 64GB Storage", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6_qqlY8mpkIzLMFG58msDnoKyFZDDpLV58g&s"},
+      {id:11, name:"Samsung Galaxy M15", price:229, desc:"6GB RAM, 128GB Storage", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzXke78PfkKvnRBun2wPwpERkV9bxgLnxvIw&s"},
+      {id:12, name:"Samsung Galaxy F55", price:349, desc:"8GB RAM, 128GB Storage", img:"https://images.samsung.com/is/image/samsung/p6pim/in/feature/165341383/in-feature-galaxy-f-541881542?$FB_TYPE_A_MO_JPG$"}
+    ];
+
+    const productList = document.getElementById("productList");
+    const cartItems = document.getElementById("cartItems");
+    const totalDisplay = document.getElementById("total");
+    let cart = [];
+
+    function renderProducts(list) {
+      productList.innerHTML = "";
+      list.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <p><strong>$${p.price}</strong></p>
+          <button onclick="addToCart(${p.id})">Add to Cart</button>
+        `;
+        productList.appendChild(div);
+      });
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        item.qty++;
+      } else {
+        cart.push({...product, qty:1});
+      }
+      renderCart();
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(i => i.id !== id);
+      renderCart();
+    }
+
+    function renderCart() {
+      cartItems.innerHTML = "";
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          ${item.name} x${item.qty} - $${item.price * item.qty}
+          <button onclick="removeFromCart(${item.id})">X</button>
+        `;
+        cartItems.appendChild(div);
+      });
+      totalDisplay.textContent = total;
+    }
+
+    document.getElementById("searchBox").addEventListener("input", e => {
+      const search = e.target.value.toLowerCase();
+      const filtered = products.filter(p => p.name.toLowerCase().includes(search));
+      renderProducts(filtered);
+    });
+
+    // Load products initially
+    renderProducts(products);
+  </script>
+</body>
+</html>
